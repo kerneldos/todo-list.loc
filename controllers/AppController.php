@@ -30,7 +30,8 @@ class AppController extends Controller {
         $todo = $dao->findById($_GET['id']);
 
         if (!empty($_POST['todo']) && !User::isGuest()) {
-            $todo->status = !empty($_POST['todo']['status']) ? 1 : 0;
+            $todo->status = (int) !empty($_POST['todo']['status']);
+            $todo->edit = (int) ($todo->text !== $_POST['todo']['text'] || $todo->edit);
             $todo->text = $_POST['todo']['text'];
 
             $errors = $dao->validate($todo);

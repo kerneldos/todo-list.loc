@@ -23,6 +23,7 @@
                         <span class="glyphicon glyphicon-sort-by-alphabet<?= $order === 'asc' ? '-alt' : '' ?>"></span>
                     </a>
                 </th>
+                <th>Edited</th>
                 <th>
                     User Name
                     <a href="/?sort=username&order=<?= $order ?>&pageNum=<?= $pageNum ?>">
@@ -43,6 +44,11 @@
             <?php foreach ($todos as $todo): ?>
                 <tr class="<?= $todo->status ? 'success' : '' ?>">
                     <td><?= $todo->status ? 'Готова' : 'В работе' ?></td>
+                    <td>
+                        <?php if (!!$todo->edit): ?>
+                            <span class="glyphicon glyphicon-ok"></span>
+                        <?php endif; ?>
+                    </td>
                     <td><?= $todo->username ?></td>
                     <td><?= $todo->email ?></td>
                     <td><?= htmlentities($todo->text) ?></td>

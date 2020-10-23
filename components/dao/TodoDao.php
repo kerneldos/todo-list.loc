@@ -60,6 +60,7 @@ final class TodoDao {
      * Save {@link Todo}.
      * @param Todo $todo {@link Todo} to be saved
      * @return Todo saved {@link Todo} instance
+     * @throws Exception
      */
     public function save(Todo $todo) {
         if ($todo->getId() === null) {
@@ -150,7 +151,8 @@ final class TodoDao {
                 status = :status,
                 username = :username,
                 email = :email,
-                text = :text
+                text = :text,
+                edit = :edit
             WHERE
                 id = :id';
 
@@ -158,6 +160,8 @@ final class TodoDao {
     }
 
     /**
+     * @param $sql
+     * @param Todo $todo
      * @return Todo
      * @throws Exception
      */
@@ -180,6 +184,7 @@ final class TodoDao {
             ':username' => $todo->username,
             ':email' => $todo->email,
             ':text' => $todo->text,
+            ':edit' => $todo->edit,
         ];
 
         return $params;

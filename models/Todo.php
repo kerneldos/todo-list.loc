@@ -21,6 +21,9 @@ final class Todo {
     /** @var string */
     public $text;
 
+    /** @var int */
+    public $edit;
+
     /**
      * Todo constructor.
      * @param $values
