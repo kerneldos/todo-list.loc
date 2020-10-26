@@ -1,10 +1,12 @@
 <?php
 namespace app\models;
 
+use app\components\Model;
+
 /**
  * Model class representing one TODO item.
  */
-final class Todo {
+final class Todo extends Model {
 
     /** @var int */
     public $id;
@@ -23,18 +25,6 @@ final class Todo {
 
     /** @var int */
     public $edit;
-
-    /**
-     * Todo constructor.
-     * @param $values
-     */
-    public function __construct($values = []) {
-        if (is_array($values) && !empty($values)) {
-            foreach ($values as $name => $value) {
-                $this->$name = $value;
-            }
-        }
-    }
 
     /**
      * @return int <i>null</i> if not persistent

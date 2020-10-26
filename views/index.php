@@ -64,9 +64,11 @@
 
     <nav aria-label="Page navigation">
         <ul class="pagination">
+            <?php $urlParams = $_GET; ?>
             <?php for ($i = 1; $i <= $pageCount; $i++): ?>
                 <li>
-                    <a href="/?pageNum=<?= $i . (!empty($_GET['sort']) ? '&sort=' . $_GET['sort'] . '&order=' . $_GET['order'] : '') ?>"><?= $i ?></a>
+                    <?php $urlParams['pageNum'] = $i; ?>
+                    <a href="/?<?= http_build_query($urlParams) ?>"><?= $i ?></a>
                 </li>
             <?php endfor; ?>
         </ul>

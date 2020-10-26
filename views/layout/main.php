@@ -51,6 +51,8 @@
             <?php else: ?>
                 <div id="navbar" class="navbar-collapse collapse">
                     <form action="/?page=logout" class="navbar-form navbar-right" method="post">
+                        <?php $user = \app\models\User::findById($_SESSION['user_id']); ?>
+                        <span style="color: white; margin-right: 15px;">Hello, <?= $user->username ?></span>
                         <button name="logout" value="1" type="submit" class="btn btn-success">Log out</button>
                     </form>
                 </div><!--/.navbar-collapse -->

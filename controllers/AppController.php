@@ -84,8 +84,10 @@ class AppController extends Controller {
     }
 
     public function actionLogin() {
-        if (!empty($_POST['user'])) {
-            if (User::login($_POST['user'])) {
+        $postUser = $_POST['user'];
+
+        if (!empty($postUser)) {
+            if (($user = User::findByUserName($postUser['username'])) !== false && $user->login($postUser['password'])) {
                 Flash::addFlash('Вы успешно авторизовались');
             } else {
                 Flash::addFlash('Не верные логин или пароль');
@@ -93,6 +95,7 @@ class AppController extends Controller {
         }
 
         header('Location: /');
+        exit();
     }
 
     public function actionLogout() {
@@ -101,7 +104,14 @@ class AppController extends Controller {
             Flash::addFlash('Вы вышли из системы');
 
             header('Location: /');
+            exit();
         }
+    }
+
+    public function actionError($message) {
+        return $this->render('error', [
+            'message' => $message,
+        ]);
     }
 
 }

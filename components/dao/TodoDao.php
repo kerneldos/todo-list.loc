@@ -45,15 +45,16 @@ final class TodoDao {
     /**
      * Find {@link Todo} by identifier.
      * @return Todo Todo or <i>null</i> if not found
+     * @throws NotFoundException|\ReflectionException
      */
     public function findById($id) {
         $row = $this->query('SELECT * FROM todo WHERE id = ' . (int) $id)->fetch();
-        if (!$row) {
-            return null;
-        }
-        $todo = new Todo($row);
 
-        return $todo;
+        if (!$row) {
+            throw new NotFoundException('Todo not found');
+        }
+
+        return new Todo($row);
     }
 
     /**
@@ -66,6 +67,7 @@ final class TodoDao {
         if ($todo->getId() === null) {
             return $this->insert($todo);
         }
+
         return $this->update($todo);
     }
 
@@ -130,6 +132,7 @@ final class TodoDao {
     }
 
     /**
+     * @param Todo $todo
      * @return Todo
      * @throws Exception
      */
@@ -178,7 +181,7 @@ final class TodoDao {
     }
 
     private function getParams(Todo $todo) {
-        $params = [
+        return [
             ':id' => $todo->getId(),
             ':status' => $todo->status,
             ':username' => $todo->username,
@@ -186,8 +189,6 @@ final class TodoDao {
             ':text' => $todo->text,
             ':edit' => $todo->edit,
         ];
-
-        return $params;
     }
 
     private function executeStatement(PDOStatement $statement, array $params) {

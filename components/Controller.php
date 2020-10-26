@@ -42,7 +42,7 @@ class Controller {
         extract($params, EXTR_OVERWRITE);
         try {
             require '../views/layout/main.php';
-            echo ob_get_clean();
+            return ob_get_clean();
         } catch (\Exception $e) {
             while (ob_get_level() > $_obInitialLevel_) {
                 if ( !@ob_end_clean() ) {
