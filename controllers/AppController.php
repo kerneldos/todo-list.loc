@@ -94,8 +94,7 @@ class AppController extends Controller {
             }
         }
 
-        header('Location: /');
-        exit();
+        return $this->redirect('index');
     }
 
     public function actionLogout() {

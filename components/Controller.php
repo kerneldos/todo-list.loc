@@ -52,4 +52,10 @@ class Controller {
             throw $e;
         }
     }
+
+    public function redirect($action) {
+        header('Location: /?page=' . $action);
+
+        return true;
+    }
 }
